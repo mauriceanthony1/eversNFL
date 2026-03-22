@@ -1,0 +1,14 @@
+run = "node index.js"
+
+[deployment]
+run = ["sh", "-c", "node index.js"]
+
+[agent]
+expertMode = true
+
+[nix]
+packages = ["nodejs"]
+
+[[ports]]
+localPort = 5000
+externalPort = 80
