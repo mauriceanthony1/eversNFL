@@ -259,7 +259,7 @@ const server = http.createServer((req, res) => {
 
   // SSE
   if (pathname === '/api/stream') {
-    res.writeHead(200, { 'Content-Type': 'text/event-stream', 'Cache-Control': 'no-cache', 'Connection': 'keep-alive' });
+    res.writeHead(200, { 'Content-Type': 'text/event-stream', 'Cache-Control': 'no-cache', 'Connection': 'keep-alive', 'X-Accel-Buffering': 'no' });
     const payload = JSON.stringify({ leaderboard: calculateLeaderboard(), week: currentWeek, lastUpdated: Date.now() });
     res.write(`event: leaderboard\ndata: ${payload}\n\n`);
     sseClients.push(res);
