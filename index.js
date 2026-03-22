@@ -343,8 +343,10 @@ const server = http.createServer((req, res) => {
   if (pathname === '/' || pathname === '/index.html') {
     try {
       let html = fs.readFileSync(path.join(__dirname, 'public', 'index.html'), 'utf8');
-      const si = html.indexOf('<script>') + 8, se = html.indexOf('<\/script>');
-      if (si > 8 && se > si) html = html.slice(0, si) + CLEAN_JS + html.slice(se);
+      const si = html.indexOf('<script>');
+      if (si >= 0) {
+        html = html.slice(0, si + 8) + CLEAN_JS + '\n<\/script>\n<\/body>\n<\/html>';
+      }
       res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
       res.end(html, 'utf8');
     } catch (_) {
